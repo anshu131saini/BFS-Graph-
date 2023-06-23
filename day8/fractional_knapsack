@@ -1,0 +1,37 @@
+/*Given weights and values of N items, we need to put these items in a knapsack of capacity W to get the maximum total value in the knapsack.*/
+
+
+
+class Solution
+{
+    public:
+    bool static compare(Item a,Item b){
+        double r1=(double)a.value/(double)a.weight;
+        double r2=(double)b.value/(double)b.weight;
+        return r1>r2;
+        
+    }
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+    sort(arr,arr+n,compare);
+    int currwt=0;
+    double final=0.0;
+    for(int i=0;i<n;i++){
+        if(currwt+arr[i].weight<=W){
+            currwt+=arr[i].weight;
+            final+=arr[i].value;
+        }
+        else
+        {
+            int remain=W-currwt;
+            final+=((double)arr[i].value/(double)arr[i].weight)*(double)remain;
+            break;
+        }
+    }
+    return final;
+    }
+        
+};
+
+
